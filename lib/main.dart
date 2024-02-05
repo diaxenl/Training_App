@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'DetailPage.dart';
+import 'detail_page.dart';
 
 void main() {
-  runApp(TrainingApp());
+  runApp(const TrainingApp());
 }
 
 class TrainingApp extends StatelessWidget {
+  const TrainingApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,12 +15,14 @@ class TrainingApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TrainingHomePage(),
+      home: const TrainingHomePage(),
     );
   }
 }
 
 class TrainingHomePage extends StatefulWidget {
+  const TrainingHomePage({super.key});
+
   @override
   _TrainingHomePageState createState() => _TrainingHomePageState();
 }
