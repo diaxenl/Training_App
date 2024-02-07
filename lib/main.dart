@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'detail_page.dart';
+import 'change_bat.dart';
+import 'wittdtjr.dart';
+import 'test_bat.dart';
 
 void main() {
   runApp(const TrainingApp());
@@ -45,37 +47,81 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Training App'),
-        toolbarHeight: 180.0, // Increase the AppBar's height
+        toolbarHeight: 180.0, // Increased height
       ),
-
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10.0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // 3 items per row
-          crossAxisSpacing: 10.0, // Horizontal space between items
-          mainAxisSpacing: 10.0, // Vertical space between items
-        ),
-        itemCount: buttonData.length, // Total number of items
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            mainAxisSize: MainAxisSize.min, // Use minimum space
-            children: <Widget>[
-              IconButton(
-                icon: Icon(buttonData[index]['icon']),
-                iconSize: 50,
-                onPressed: () {
-                  // Navigate to the DetailPage
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DetailPage(buttonText: buttonData[index]['text'])),
-                  );
-                },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Select an option below to get started:',
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(10.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, // 3 items per row
+                crossAxisSpacing: 10.0, // Horizontal space between items
+                mainAxisSpacing: 10.0, // Vertical space between items
               ),
+              itemCount: buttonData.length, // Total number of items
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  elevation: 2.0, // Add elevation for shadow
+                  child: InkWell(
+                    onTap: () {
+                      if (index == 0) { //Change bat
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BatteryTestingGuidePage()),
+                        );
+                      } else if (index == 1) {
+                        // Navigation to WittdtjrPage
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const WittdtjrPage()),
+                        );
+                      } else if (index == 2) {
+                        // Navigation to test_bat
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const BatteryTestingGuidePage()),
+                        );
+                      }
+                      else {
+                        // Default case for other buttons
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DetailPage(buttonText: buttonData[index]['text'])),
+                        );
+                      }
+                    },
 
-              Text(buttonData[index]['text']), // Text description below the icon
-            ],
-          );
-        },
+
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Use minimum space
+                      children: <Widget>[
+                        Expanded(
+                          child: Icon(
+                            buttonData[index]['icon'],
+                            size: 50, // Icon size
+                          ),
+                        ),
+                        Text(
+                          buttonData[index]['text'], // Text description below the icon
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
