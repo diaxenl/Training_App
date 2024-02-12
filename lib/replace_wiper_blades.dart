@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class DetailPage extends StatelessWidget {
+class ChangeWiperBladePage extends StatelessWidget {
   final String buttonText;
   final YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'XN4GSRObmBA', // The video ID extracted from the URL
+    initialVideoId: 'zMIfCVYcGys', // The video ID extracted from the URL
     flags: const YoutubePlayerFlags(
       autoPlay: false,
       mute: false,
     ),
   );
 
-  DetailPage({super.key, required this.buttonText});
+  ChangeWiperBladePage({super.key, required this.buttonText});
 
   @override
   Widget build(BuildContext context) {
@@ -39,32 +39,15 @@ class DetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Changing a Battery',
+                  'Changing a Wiper Blade',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-                const SizedBox(height: 8),
                 Text(
-                  'Step 1: Locate the Battery',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  'The battery is typically located in the engine bay. '
-                  'If you are having trouble finding it, refer to your '
-                  'vehicle’s manual for guidance.',
+                  'Remove old blade.'
+                  'If it is a hook design you simply need to pull it off, some will require you you push a button or squeeze the sides of the connection',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 16),
-                Text(
-                  'Step 2: Remove the Old Battery',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  'Before removing the old battery, make sure that the vehicle '
-                  'is off. Use a wrench to loosen the bolts that hold the '
-                  'battery in place.',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                // Continue adding steps and text for the guide.
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'change_bat.dart';
 import 'wittdtjr.dart';
 import 'test_bat.dart';
+import 'replace_wiper_blades.dart';
 
 void main() {
   runApp(const TrainingApp());
@@ -32,8 +33,8 @@ class TrainingHomePage extends StatefulWidget {
 class _TrainingHomePageState extends State<TrainingHomePage> {
   final List<Map<String, dynamic>> buttonData = [
     {'icon': Icons.battery_std, 'text': 'Change a Battery'},
-    {'icon': Icons.search, 'text': 'Button 2'},
-    {'icon': Icons.settings, 'text': 'Button 3'},
+    {'icon': Icons.sell, 'text': 'WITTDTJR'},
+    {'icon': Icons.clear, 'text': 'Replace Wiper Blades'},
     {'icon': Icons.alarm, 'text': 'Button 4'},
     {'icon': Icons.phone, 'text': 'Button 5'},
     {'icon': Icons.camera_alt, 'text': 'Button 6'},
@@ -73,34 +74,49 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
                   elevation: 2.0, // Add elevation for shadow
                   child: InkWell(
                     onTap: () {
-                      if (index == 0) { //Change bat
+                      if (index == 0) {
+                        //Change bat
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const BatteryTestingGuidePage()),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BatteryTestingGuidePage()),
                         );
                       } else if (index == 1) {
                         // Navigation to WittdtjrPage
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const WittdtjrPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const WittdtjrPage()),
                         );
                       } else if (index == 2) {
                         // Navigation to test_bat
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const BatteryTestingGuidePage()),
+                          MaterialPageRoute(
+                              builder: (context) => ChangeWiperBladePage(
+                                    buttonText: 'Change Wiper Blades',
+                                  )),
                         );
-                      }
-                      else {
+                      } else if (index == 3) {
+                        // Navigation to replace_wiper_blade
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChangeWiperBladePage(
+                                    buttonText: 'Change Wiper Blades',
+                                  )),
+                        );
+                      } else {
                         // Default case for other buttons
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => DetailPage(buttonText: buttonData[index]['text'])),
+                          MaterialPageRoute(
+                              builder: (context) => DetailPage(
+                                  buttonText: buttonData[index]['text'])),
                         );
                       }
                     },
-
-
                     child: Column(
                       mainAxisSize: MainAxisSize.min, // Use minimum space
                       children: <Widget>[
@@ -111,7 +127,8 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
                           ),
                         ),
                         Text(
-                          buttonData[index]['text'], // Text description below the icon
+                          buttonData[index]['text'],
+                          // Text description below the icon
                           textAlign: TextAlign.center,
                         ),
                       ],
