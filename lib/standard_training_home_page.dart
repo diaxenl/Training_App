@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:training_app/time_off.dart';
-import 'package:training_app/warranty_swap.dart';
+import 'package:training_app/Basic_Employee/time_off.dart';
+import 'package:training_app/Basic_Employee/warranty_swap.dart';
 import 'package:training_app/web_view.dart'; // Assuming this is correctly pointing to your WebViewPage
-import 'package:training_app/znet_home.dart';
-import 'change_bat.dart'; // Assuming this is correctly pointing to your BatteryTestingGuidePage
-import 'checkout.dart';
-import 'wittdtjr.dart'; // Assuming this is correctly pointing to your WittdtjrPage
-import 'test_bat.dart'; // Assuming this is your custom page, ensure it's correctly imported
-import 'replace_wiper_blades.dart'; // Assuming this is correctly pointing to your ChangeWiperBladePage
+import 'package:training_app/Basic_Employee/znet_home.dart';
+import 'Basic_Employee/change_bat.dart'; // Assuming this is correctly pointing to your BatteryTestingGuidePage
+import 'Basic_Employee/checkout.dart';
+import 'Basic_Employee/wittdtjr.dart'; // Assuming this is correctly pointing to your WittdtjrPage
+import 'package:training_app/Basic_Employee/test_bat.dart'; // Assuming this is your custom page, ensure it's correctly imported
+import 'Basic_Employee/replace_wiper_blades.dart'; // Assuming this is correctly pointing to your ChangeWiperBladePage
 
 class TrainingHomePage extends StatefulWidget {
   const TrainingHomePage({Key? key}) : super(key: key);

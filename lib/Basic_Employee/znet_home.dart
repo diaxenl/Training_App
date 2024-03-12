@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Import pages that you will navigate to. For now, these are placeholders.
 // Make sure to update these imports to the actual pages you want to navigate to.
-import 'package:training_app/training_home_page.dart'; // Assuming you have a back navigation for demonstration.
+import 'package:training_app/standard_training_home_page.dart'; // Assuming you have a back navigation for demonstration.
 
 class ZnetHome extends StatelessWidget {
   ZnetHome({Key? key}) : super(key: key);
