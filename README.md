@@ -1,16 +1,14 @@
-# training_app
+# Blackbox Training - Mobile application
 
-A new Flutter project.
+Training redefined. Take your employees from 0-100 with one single app.
 
-## Getting Started
+## Roadmap
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [x] Training home page
+- [x] Template for training pages
+- [x] Populate quick reference pages
+    - [] Embed page from the site? Potential connection issues/speed?
+- [x] Reformat to be easier to use
+- [] Local users
+    - [] Super user to track global progress
+- [] Styling
