@@ -12,23 +12,18 @@ class MenuPage extends StatelessWidget {
           title: const Text(''),
         ),
         body: LayoutBuilder(
-          // Use LayoutBuilder for dynamic sizing
           builder: (BuildContext context, BoxConstraints constraints) {
             return Center(
               child: Container(
-                padding: const EdgeInsets.all(20), // Adjust padding as needed
+                padding: const EdgeInsets.all(20),
                 child: GridView.count(
                   crossAxisCount: 2,
                   childAspectRatio: (1 / .8),
-                  // Adjust based on your content
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   shrinkWrap: true,
-                  // Use shrinkWrap to fit the content in the viewport
                   physics: const NeverScrollableScrollPhysics(),
-                  // Disables scrolling
                   children: <Widget>[
-                    // New Employee Button
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -38,10 +33,9 @@ class MenuPage extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue, // Button color
-                        minimumSize: const Size(100, 100), // Size of the button
+                        backgroundColor: Colors.blue,
+                        minimumSize: const Size(100, 100),
                         shape: RoundedRectangleBorder(
-                          // Rounded corners
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
@@ -50,7 +44,6 @@ class MenuPage extends StatelessWidget {
                         style: TextStyle(fontSize: 24, color: Colors.black),
                       ),
                     ),
-                    // Manager Button
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -71,7 +64,6 @@ class MenuPage extends StatelessWidget {
                         style: TextStyle(fontSize: 24, color: Colors.black),
                       ),
                     ),
-                    // Commercial Button
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -92,7 +84,6 @@ class MenuPage extends StatelessWidget {
                         style: TextStyle(fontSize: 24, color: Colors.black),
                       ),
                     ),
-                    // Store Manager Button
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
