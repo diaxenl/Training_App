@@ -97,14 +97,7 @@ class _UserLoginState extends State<UserLogin> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Login'),
-        actions: [
-          if (_users.isNotEmpty)
-            IconButton(
-              icon: const Icon(Icons.login),
-              tooltip: 'Login as a different user',
-              onPressed: () {},
-            ),
-        ],
+        backgroundColor: Colors.orange,
       ),
       body: _users.isEmpty
           ? const Center(
