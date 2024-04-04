@@ -12,23 +12,23 @@ class UserLogin extends StatefulWidget {
 }
 
 class _UserLoginState extends State<UserLogin> {
-  List<User> _users = []; // This will now hold users loaded from the database
+  List<User> _users = [];
 
   @override
   void initState() {
     super.initState();
-    _loadUsers(); // Load users from the database when the widget initializes
+    _loadUsers();
   }
 
   void _loadUsers() async {
     _users = await DatabaseHelper.instance.getUsers(); // Fetch users from the database
-    setState(() {}); // Update the UI
+    setState(() {});
   }
 
   void _addUser(String firstName, String lastName, String pin) async {
     final user = User(firstName: firstName, lastName: lastName, pin: pin);
-    await DatabaseHelper.instance.insertUser(user); // Insert the user into the database
-    _loadUsers(); // Reload users to update the UI
+    await DatabaseHelper.instance.insertUser(user);
+    _loadUsers();
   }
 
   void _showAddUserDialog() {
@@ -99,28 +99,46 @@ class _UserLoginState extends State<UserLogin> {
         title: const Text('User Login'),
         backgroundColor: Colors.orange,
       ),
-      body: _users.isEmpty
-          ? const Center(
-              child: Text(
-                'No users found. Tap "+" to add a user.',
-                style: TextStyle(fontSize: 18),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _users.isEmpty
+            ? const Center(
+          child: Text(
+            'No users found. Tap "+" to add a user.',
+            style: TextStyle(fontSize: 18),
+          ),
+        )
+            : ListView.builder(
+          itemCount: _users.length,
+          itemBuilder: (context, index) {
+            final user = _users[index];
+            return Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(color: Colors.grey.shade300, width: 1),
               ),
-            )
-          : ListView.separated(
-              itemCount: _users.length,
-              separatorBuilder: (context, index) => const Divider(),
-              itemBuilder: (context, index) {
-                final user = _users[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Text(user.firstName[0]),
-                  ),
-                  title: Text('${user.firstName} ${user.lastName}'),
-                  subtitle: const Text('Tap to login'),
-                  onTap: () => _verifyPinAndNavigate(user),
-                );
-              },
-            ),
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+              child: ListTile(
+                leading: CircleAvatar(
+                  child: Text(user.firstName[0]),
+                ),
+                title: Text('${user.firstName} ${user.lastName}'),
+                subtitle: const Text('Tap to login'),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () async {
+                    // Call your method to delete the user
+                    await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
+                    _loadUsers(); // Reload the list to reflect the deletion
+                  },
+                ),
+                onTap: () => _verifyPinAndNavigate(user),
+              ),
+            );
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddUserDialog,
         tooltip: 'Add User',
@@ -128,6 +146,7 @@ class _UserLoginState extends State<UserLogin> {
       ),
     );
   }
+
 
   void _verifyPinAndNavigate(User user) {
     final TextEditingController _pinController = TextEditingController();

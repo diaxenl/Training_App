@@ -33,9 +33,33 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Training App'),
-        toolbarHeight: 180.0, // Increased height
-        leading: null
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Expanded( // Expands to fill the available space, pushing the image to the center
+              child: Container(), // Empty container used to center the title (image) when there's an action button
+            ),
+            Image.asset(
+              'assets/images/az_logo.png',
+              fit: BoxFit.fill,
+              height: 300.0, // You can adjust the size of the image
+            ),
+            Expanded( // Expands to fill the available space, ensuring the image stays centered
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    // Code to navigate back to the login page
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.orange,
+        automaticallyImplyLeading: false, // Prevents the default back button from appearing
       ),
       body: Column(
         children: [

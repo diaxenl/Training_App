@@ -26,7 +26,7 @@ class DatabaseHelper {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, _dbName);
     return await openDatabase(path, version: _dbVersion, onCreate: _onCreate);
-  }
+      }
 
   Future _onCreate(Database db, int version) async {
     await db.execute('''
@@ -54,4 +54,14 @@ class DatabaseHelper {
       return User.fromMap(userMaps[i]);
     });
   }
+
+  Future<void> deleteUser(String firstName, String lastName, String pin) async {
+    Database db = await instance.database;
+    await db.delete(
+      _tableName,
+      where: '$columnFirstName = ? AND $columnLastName = ? AND $columnPin = ?',
+      whereArgs: [firstName, lastName, pin],
+    );
+  }
 }
+
