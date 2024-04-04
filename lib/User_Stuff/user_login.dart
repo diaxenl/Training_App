@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:training_app/standard_training_home_page.dart';
-import 'DatabaseHelper.dart';
-import 'user_model.dart'; // Make sure this points to your User model
-import 'DatabaseHelper.dart'; // Import your DatabaseHelper
+import './DatabaseHelper.dart';
+import './user_model.dart'; // Make sure this points to your User model
+import './DatabaseHelper.dart'; // Import your DatabaseHelper
+import 'user_home.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
@@ -99,53 +100,91 @@ class _UserLoginState extends State<UserLogin> {
         title: const Text('User Login'),
         backgroundColor: Colors.orange,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _users.isEmpty
-            ? const Center(
-          child: Text(
-            'No users found. Tap "+" to add a user.',
-            style: TextStyle(fontSize: 18),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 60.0), // Adjust padding to prevent your list or content from being obscured by the fixed button.
+            child: _users.isEmpty
+                ? const Center(
+              child: Text(
+                'No users found. Tap "+" to add a user.',
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+                : ListView.builder(
+              itemCount: _users.length,
+              itemBuilder: (context, index) {
+                final user = _users[index];
+                return Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(color: Colors.grey.shade300, width: 1),
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: Text(user.firstName[0]),
+                    ),
+                    title: Text('${user.firstName} ${user.lastName}'),
+                    subtitle: const Text('Tap to login'),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () async {
+                        // Call your method to delete the user
+                        await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
+                        _loadUsers(); // Reload the list to reflect the deletion
+                      },
+                    ),
+                    onTap: () => _verifyPinAndNavigate(user),
+                  ),
+                );
+              },
+            ),
           ),
-        )
-            : ListView.builder(
-          itemCount: _users.length,
-          itemBuilder: (context, index) {
-            final user = _users[index];
-            return Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: Colors.grey.shade300, width: 1),
-              ),
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-              child: ListTile(
-                leading: CircleAvatar(
-                  child: Text(user.firstName[0]),
-                ),
-                title: Text('${user.firstName} ${user.lastName}'),
-                subtitle: const Text('Tap to login'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () async {
-                    // Call your method to delete the user
-                    await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
-                    _loadUsers(); // Reload the list to reflect the deletion
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0), // This adds padding around the button container
+              child: Material(
+                color: Colors.orange, // Button background color
+                borderRadius: BorderRadius.circular(10.0), // Adjust for desired roundness of corners
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TrainingHomePage()),
+                    );
                   },
+                  borderRadius: BorderRadius.circular(30.0), // Same value as the Material's borderRadius for the ripple effect to match
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0), // Padding inside the button for text
+                    child: Center(
+                      child: Text(
+                        'Training Home',
+                        style: TextStyle(color: Colors.white, fontSize: 18), // Adjust text color and size as per your theme
+                      ),
+                    ),
+                  ),
                 ),
-                onTap: () => _verifyPinAndNavigate(user),
               ),
-            );
-          },
-        ),
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddUserDialog,
-        tooltip: 'Add User',
-        child: const Icon(Icons.add),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 65.0), // Adjust the value as needed to raise the FAB above the bottom button
+        child: FloatingActionButton(
+          onPressed: _showAddUserDialog,
+          tooltip: 'Add User',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
+
 
 
   void _verifyPinAndNavigate(User user) {
@@ -174,7 +213,7 @@ class _UserLoginState extends State<UserLogin> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const TrainingHomePage()),
+                        builder: (context) => const UserHome()),
                   );
                 } else {
                   Navigator.of(context).pop();

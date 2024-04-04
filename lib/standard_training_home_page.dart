@@ -41,8 +41,8 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
             ),
             Image.asset(
               'assets/images/az_logo.png',
-              fit: BoxFit.fill,
-              height: 300.0, // You can adjust the size of the image
+              fit: BoxFit.contain,
+              height: 50.0, // You can adjust the size of the image
             ),
             Expanded( // Expands to fill the available space, ensuring the image stays centered
               child: Align(
@@ -50,7 +50,6 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
                 child: IconButton(
                   icon: const Icon(Icons.logout),
                   onPressed: () {
-                    // Code to navigate back to the login page
                     Navigator.pop(context);
                   },
                 ),
