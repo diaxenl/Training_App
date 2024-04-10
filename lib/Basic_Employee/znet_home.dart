@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:training_app/standard_training_home_page.dart'; // Assuming you have a back navigation for demonstration.
 
 class ZnetHome extends StatelessWidget {
-  ZnetHome({Key? key}) : super(key: key);
+  ZnetHome({Key? key, required String buttonText}) : super(key: key);
 
   // Define button details here. Each map in the list represents a button.
   // For now, it contains a placeholder for where the button should navigate to.

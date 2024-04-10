@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:training_app/Basic_Employee/time_off.dart';
 import 'package:training_app/Basic_Employee/warranty_swap.dart';
-import 'package:training_app/web_view.dart'; // Assuming this is correctly pointing to your WebViewPage
+import 'package:training_app/web_view.dart';
 import 'package:training_app/Basic_Employee/znet_home.dart';
-import 'Basic_Employee/change_bat.dart'; // Assuming this is correctly pointing to your BatteryTestingGuidePage
+import 'Basic_Employee/change_bat.dart';
 import 'Basic_Employee/checkout.dart';
-import 'Basic_Employee/wittdtjr.dart'; // Assuming this is correctly pointing to your WittdtjrPage
-import 'package:training_app/Basic_Employee/test_bat.dart'; // Assuming this is your custom page, ensure it's correctly imported
-import 'Basic_Employee/replace_wiper_blades.dart'; // Assuming this is correctly pointing to your ChangeWiperBladePage
+import 'Basic_Employee/wittdtjr.dart';
+import 'package:training_app/Basic_Employee/test_bat.dart';
+import 'Basic_Employee/replace_wiper_blades.dart';
+import 'custom_page.dart';
 
 class TrainingHomePage extends StatefulWidget {
   const TrainingHomePage({Key? key}) : super(key: key);
@@ -27,7 +29,43 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
     {'icon': Icons.favorite, 'text': 'Time Off'},
     {'icon': Icons.email, 'text': 'ZNET'},
     {'icon': Icons.map, 'text': 'Website'},
+    {'icon': Icons.create, 'text': 'Create New Page'}
   ];
+
+  List<PageItem> items = []; // This will now include both your static and dynamic items
+
+  @override
+  void initState() {
+    super.initState();
+    _loadItems(); // Load both static and dynamic items
+  }
+
+  Future<void> _loadItems() async {
+    // Define static items here. Each item has an icon, text, and a destination page.
+    items = [
+      PageItem(icon: Icons.battery_std, text: 'Change a Battery', destination: DetailPage(buttonText: 'Change a Battery',)),
+      PageItem(icon: Icons.sell, text: 'WITTDTJR', destination: const WittdtjrPage()),
+      PageItem(icon: Icons.clear, text: 'Replace Wiper Blades', destination: ChangeWiperBladePage(buttonText: 'Replace Wiper Blades')),
+      PageItem(icon: Icons.alarm, text: 'Testing a Battery', destination: const BatteryTestingGuidePage(buttonText: 'Testing a Battery')),
+      PageItem(icon: Icons.clear, text: 'Warranty Swap', destination: WarrantySwapPage(buttonText: 'Warranty Swap')),
+      PageItem(icon: Icons.clear, text: 'Checkout', destination: CheckoutPage(buttonText: 'Checkout')),
+      PageItem(icon: Icons.clear, text: 'Time Off', destination: TimeOffPage(buttonText: 'Time Off')),
+      PageItem(icon: Icons.clear, text: 'ZNET', destination: ZnetHome(buttonText: 'ZNET')),
+      PageItem(icon: Icons.clear, text: 'Website', destination: const WebViewPage(buttonText: 'Website')),
+      PageItem(icon: Icons.create, text: 'Create New Page', destination: null), // No destination: handled specially
+    ];
+
+    // Load dynamic items from SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    final keys = prefs.getKeys();
+    // Assuming you store each dynamic page with a unique key
+    // For each key that represents a dynamic page, create a PageItem and add it to items
+    // You'll need to adjust the logic based on how you store and identify these dynamic pages
+
+    setState(() {
+      // This will refresh the UI with the updated items
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,138 +104,60 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
             padding: const EdgeInsets.all(10.0),
             child: Text(
               'Select an option below to get started:',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleLarge,
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(10.0),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // 3 items per row
-                crossAxisSpacing: 10.0, // Horizontal space between items
-                mainAxisSpacing: 10.0, // Vertical space between items
-              ),
-              itemCount: buttonData.length, // Total number of items
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  elevation: 2.0, // Add elevation for shadow
-                  child: InkWell(
-                    onTap: () => _onButtonTap(context, index),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min, // Use minimum space
-                      children: <Widget>[
-                        Expanded(
-                          child: Icon(
-                            buttonData[index]['icon'],
-                            size: 50, // Icon size
-                          ),
-                        ),
-                        Text(
-                          buttonData[index]['text'],
-                          // Text description below the icon
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+              child: GridView.builder(
+                padding: const EdgeInsets.all(10.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                ),
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  return Card(
+                    elevation: 2.0,
+                    child: InkWell(
+                      onTap: () {
+                        if (item.destination != null) {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => item.destination!));
+                        } else if (item.text == 'Create New Page') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LocalPageCreator()),
+                          ).then((_) => _loadItems()); // Reload items upon returning, to refresh any new pages
+                        }
+                        // Add more conditions here if some items need special handling
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Expanded(child: Icon(item.icon, size: 50)),
+                          Text(item.text, textAlign: TextAlign.center),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+              )
           ),
         ],
       ),
     );
   }
+}
 
-  void _onButtonTap(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        // Change a Battery
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(
-                    buttonText: 'Change a Battery',
-                  )),
-        );
-        break;
-      case 1:
-        // WITTDTJR
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const WittdtjrPage()),
-        );
-        break;
-      case 2:
-        // Replace Wiper Blades
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChangeWiperBladePage(
-                    buttonText: 'Change Wiper Blade',
-                  )), // Ensure this is the correct constructor
-        );
-        break;
-      case 3:
-        // Testing a Battery
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const BatteryTestingGuidePage()), // Ensure this is the correct constructor
-        );
-        break;
-      case 4:
-        // MISSING
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => WarrantySwapPage(
-                    buttonText: 'Warranty Swap',
-                  )), // Ensure this is the correct constructor
-        );
-        break;
-      case 5:
-        // MISSING
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CheckoutPage(
-                    buttonText: 'Checkout',
-                  )), // Ensure this is the correct constructor
-        );
-        break;
-      case 6:
-        // MISSING
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TimeOffPage(
-                    buttonText: 'Time Off',
-                  )), // Ensure this is the correct constructor
-        );
-        break;
-      case 7:
-        // MISSING
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ZnetHome()), // Ensure this is the correct constructor
-        );
-        break;
-      case 8:
-        // Website
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const WebViewPage(buttonText: 'Web View')),
-        );
-        break;
-      default:
-        // Handle other cases or default navigation
-        break;
-    }
-  }
+class PageItem {
+  final IconData icon;
+  final String text;
+  final Widget? destination; // Widget to navigate to when this item is tapped
+
+  PageItem({required this.icon, required this.text, this.destination});
 }

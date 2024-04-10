@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:training_app/standard_training_home_page.dart'; // Adjust this import path to where your TrainingHomePage is located.
 

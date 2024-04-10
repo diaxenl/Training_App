@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'change_bat.dart';
 
 class BatteryTestingGuidePage extends StatelessWidget {
-  const BatteryTestingGuidePage({Key? key}) : super(key: key);
+  const BatteryTestingGuidePage({Key? key, required String buttonText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
