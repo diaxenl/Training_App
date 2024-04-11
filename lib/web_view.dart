@@ -43,7 +43,7 @@ class _WebViewPageState extends State<WebViewPage> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://www.tacobell.com/'));
+      ..loadRequest(Uri.parse('https://discourse.otaqyunqoiso.website/t/how-to-change-a-battery/9'));
   }
 
   @override
