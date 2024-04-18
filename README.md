@@ -1,19 +1,25 @@
-# Blackbox Training - Mobile application
+# SkillSync
 
-Training redefined. Take your employees from 0-100 with one single app.
-OFFLINE VERSION
+SkillSync is a training and reference application tailored for retail environments. Designed to enhance employee competencies and streamline the training process, SkillSync offers an intuitive and robust platform for continuous learning and development.
 
-## Roadmap
+## Features
 
-- [x] Training home page
-- [x] Template for training pages
-- [x] Populate quick reference pages
-- [x] Reformat to be easier to use
-- [x] Local users
-    - [ ] Super user to track global progress
-    - [ ] Super user can see progress of others
-    - [ ] Super can assign things?
-- [ ] Styling
-- [ ] Add comment section to pages
-- [ ] Allow certain users to edit pages
-- [ ] Build out content
+- Personalized user experiences for roles like store managers, standard employees, drivers and commercial managers.
+- Quick access to training modules and reference materials.
+- Home page dashboard with pending training and commonly accessed resources.
+- Integrated quizzes and certifications to validate and reinforce learning.
+
+## Getting Started
+
+These instructions will guide you on how to get the SkillSync app up and running on your device.
+
+### Users Guide
+
+1. Power on tablet and open the SkillSync app
+2. The first user will be the admin so make sure its someone like the **Store Manager**
+3. Add other users and set a pin for each
+    1. If a user forgets their pin the admin can change it.
+
+## This is not a public release and should not have any user installation requirements.
+
+If you encounter any issues during use or installation, please reach out to our support team at `https://discourse.otaqyunqoiso.website/`.
