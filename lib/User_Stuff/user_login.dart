@@ -4,6 +4,7 @@ import './DatabaseHelper.dart';
 import './user_model.dart'; // Make sure this points to your User model
 import './DatabaseHelper.dart'; // Import your DatabaseHelper
 import 'user_home.dart';
+import 'package:training_app/in_between_guide.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
@@ -147,24 +148,25 @@ class _UserLoginState extends State<UserLogin> {
             left: 0,
             right: 0,
             child: Padding(
-              padding: const EdgeInsets.all(8.0), // This adds padding around the button container
+              padding: const EdgeInsets.all(8.0),
               child: Material(
-                color: Colors.orange, // Button background color
-                borderRadius: BorderRadius.circular(10.0), // Adjust for desired roundness of corners
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(10.0),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const TrainingHomePage()),
+                      MaterialPageRoute(builder: (context) => InBetweenGuide()),
+                      //MaterialPageRoute(builder: (context) => const TrainingHomePage()),
                     );
                   },
-                  borderRadius: BorderRadius.circular(30.0), // Same value as the Material's borderRadius for the ripple effect to match
+                  borderRadius: BorderRadius.circular(30.0),
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0), // Padding inside the button for text
+                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 20.0),
                     child: Center(
                       child: Text(
                         'Training Home',
-                        style: TextStyle(color: Colors.white, fontSize: 18), // Adjust text color and size as per your theme
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),
@@ -175,7 +177,7 @@ class _UserLoginState extends State<UserLogin> {
         ],
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 65.0), // Adjust the value as needed to raise the FAB above the bottom button
+        padding: const EdgeInsets.only(bottom: 65.0),
         child: FloatingActionButton(
           onPressed: _showAddUserDialog,
           tooltip: 'Add User',

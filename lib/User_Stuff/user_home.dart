@@ -89,7 +89,7 @@ class _UserHomeState extends State<UserHome> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const TrainingHomePage()), // Update this to your training home page navigation
+                            const TrainingHomePage()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
