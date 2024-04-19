@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:training_app/standard_training_home_page.dart';
+import '../Admin/Admin_Home.dart';
 import './DatabaseHelper.dart';
 import './user_model.dart'; // Path to the User model class
 import 'user_home.dart';
@@ -176,7 +177,16 @@ class _UserLoginState extends State<UserLogin> {
               onPressed: () {
                 if (_pinController.text == user.pin) {
                   Navigator.of(context).pop();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHome()));
+
+                  // Check if the user is the first in the list
+                  if (_users.indexOf(user) == 0) {
+                    // Route to AdminHome if it's the first user
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminHome()));
+                  } else {
+                    // Route to UserHome for all other users
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHome()));
+                  }
+
                 } else {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Incorrect PIN')));

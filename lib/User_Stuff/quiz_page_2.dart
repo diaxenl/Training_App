@@ -5,8 +5,9 @@ import 'DatabaseHelper.dart';
 // StatefulWidget for the first quiz page
 class QuizPage2 extends StatefulWidget {
   final String userID;
+  final VoidCallback onCompleted; // Add this
 
-  const QuizPage2({super.key, required this.userID});
+  const QuizPage2({super.key, required this.userID, required this.onCompleted});
 
   @override
   State<QuizPage2> createState() => _QuizPage2State();
@@ -88,7 +89,16 @@ class _QuizPage2State extends State<QuizPage2> {
   // Navigates to the next question or results page
   void _nextQuestion() {
     if (_currentQuestionIndex + 1 == _questions.length) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultsPage(score: _score, total: _questions.length, userID: widget.userID)));
+      // Call the onCompleted callback before navigating to the results page
+      widget.onCompleted(); // This calls the callback passed in from UserHome
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ResultsPage(
+            score: _score,
+            total: _questions.length,
+            userID: widget.userID,
+          ))
+      );
     } else {
       setState(() {
         _currentQuestionIndex++;

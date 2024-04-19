@@ -112,4 +112,18 @@ class DatabaseHelper {
         whereArgs: [firstName, lastName, pin]
     );
   }
+
+  Future<void> updateUserDetails(int id, String firstName, String lastName, String pin) async {
+    Database db = await database;
+    await db.update(
+      _tableName,
+      {
+        'firstName': firstName,
+        'lastName': lastName,
+        'pin': pin,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
 }
