@@ -22,7 +22,7 @@ These instructions will guide you on how to get the SkillSync app up and running
 
 ## This is not a public release and should not have any user installation requirements.
 
-If you encounter any issues during use or installation, please reach out to our support team at `https://discourse.otaqyunqoiso.website/`.
+If you encounter any issues during use or installation, please reach out to our support team at [Discourse](https://discourse.otaqyunqoiso.website/).
 
 
 ##For grading purposes
