@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:training_app/User_Stuff/user_model.dart';
-
-//import 'package:training_app/User.dart';
 import '../User_Stuff/DatabaseHelper.dart';
 
+
+/// Admin page, pulls other user data.
+/// Easy to scale from here, push notifications, check training progress, etc.
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
 
@@ -22,7 +23,7 @@ class _AdminHomeState extends State<AdminHome> {
 
   void _loadUsers() async {
     List<User> users =
-        await DatabaseHelper.instance.getUsers(); // No casting needed
+        await DatabaseHelper.instance.getUsers();
     print('Fetched users: $users'); // Debug: Print the users.
     if (users.length > 1) {
       setState(() {
@@ -78,10 +79,9 @@ class _AdminHomeState extends State<AdminHome> {
                 }
 
                 try {
-                  // Cast or confirm user.id is an integer
                   int userId = int.tryParse(user.pin.toString()) ?? 0;
                   if (userId == 0) {
-                    throw 'Invalid user ID'; // Add more robust handling as needed
+                    throw 'Invalid user ID';
                   }
 
                   await DatabaseHelper.instance.updateUserDetails(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'standard_training_home_page.dart';
 
+///Used to help narrow down what pages are seen, make it less overwhelming and more concentrated. Not full implemented yet
+
 class InBetweenGuide extends StatelessWidget {
   final List<NavigationItem> navigationItems = [
     NavigationItem(icon: Icons.settings, text: 'Processes', destination: const TrainingHomePage()),

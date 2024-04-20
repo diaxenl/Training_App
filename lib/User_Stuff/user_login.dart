@@ -5,7 +5,7 @@ import './DatabaseHelper.dart';
 import './user_model.dart'; // Path to the User model class
 import 'user_home.dart';
 
-// StatefulWidget for handling user login
+/// StatefulWidget for handling user login
 class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
 
@@ -111,13 +111,13 @@ class _UserLoginState extends State<UserLogin> {
                     leading: CircleAvatar(child: Text(user.firstName[0])),
                     title: Text('${user.firstName} ${user.lastName}'),
                     subtitle: const Text('Tap to login'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () async {
-                        await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
-                        _loadUsers();
-                      },
-                    ),
+                    ///trailing: IconButton(
+                    ///  icon: const Icon(Icons.delete, color: Colors.red),
+                    ///  onPressed: () async {
+                    ///    await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
+                    ///    _loadUsers();
+                    ///  },
+                    ///), Moved to admin side
                     onTap: () => _verifyPinAndNavigate(user),
                   ),
                 );

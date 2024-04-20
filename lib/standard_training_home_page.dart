@@ -12,6 +12,7 @@ import 'Basic_Employee/replace_wiper_blades.dart';
 import 'User_Stuff/user_login.dart';
 import 'custom_page.dart';
 
+///Page that contains all cards to all pages. Easily scalable with the list of pages.
 class TrainingHomePage extends StatefulWidget {
   const TrainingHomePage({Key? key}) : super(key: key);
 
@@ -19,6 +20,7 @@ class TrainingHomePage extends StatefulWidget {
   _TrainingHomePageState createState() => _TrainingHomePageState();
 }
 
+///List of all current pages, used to generate page content (deprecated)
 class _TrainingHomePageState extends State<TrainingHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,16 +37,16 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
     {'icon': Icons.create, 'text': 'Create New Page'}
   ];
 
-  List<PageItem> items = []; // This will now include both your static and dynamic items
+  List<PageItem> items = [];
 
   @override
   void initState() {
     super.initState();
-    _loadItems(); // Load both static and dynamic items
+    _loadItems();
   }
 
+  ///List of all pages, name, and destination. Used to populate the card grid with data.
   Future<void> _loadItems() async {
-    // Define static items here. Each item has an icon, text, and a destination page.
     items = [
       PageItem(icon: Icons.battery_std, text: 'Change a Battery', destination: DetailPage(buttonText: 'Change a Battery',)),
       PageItem(icon: Icons.sell, text: 'WITTDTJR', destination: const WittdtjrPage()),
@@ -64,6 +66,7 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
     // Assuming you store each dynamic page with a unique key
     // For each key that represents a dynamic page, create a PageItem and add it to items
     // You'll need to adjust the logic based on how you store and identify these dynamic pages
+    // Beginning of refactoring to improve scalability, searchability and allow user generated content
 
     setState(() {
       // This will refresh the UI with the updated items
@@ -110,7 +113,7 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
           },
         ),
       ),
-      drawer: buildDrawer(context), // Assign the drawer here
+      drawer: buildDrawer(context),
       body: Column(
         children: [
           Expanded(
@@ -155,14 +158,14 @@ class _TrainingHomePageState extends State<TrainingHomePage> {
           ListTile(
             title: const Text('Home'),
             onTap: () {
-              Navigator.pop(context);  // Closes the drawer
-              // Add any actions here, such as navigating to the home screen
+              Navigator.pop(context);
+              // Add futute actions here
             },
           ),
           ListTile(
             title: const Text('Logout'),
             onTap: () {
-              Navigator.pop(context);  // Closes the drawer
+              Navigator.pop(context);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => UserLogin()),

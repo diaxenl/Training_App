@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'change_bat.dart';
 
+/// Content Page
 class BatteryTestingGuidePage extends StatelessWidget {
   const BatteryTestingGuidePage({Key? key, required String buttonText}) : super(key: key);
 
@@ -9,14 +10,13 @@ class BatteryTestingGuidePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('buttonText'),
-        toolbarHeight: 180.0, // Increased height
+        toolbarHeight: 180.0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: SingleChildScrollView(
-        // Allows the page to be scrollable
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +78,7 @@ class BatteryTestingGuidePage extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => DetailPage(
                             buttonText: '',
-                          )), // Update this with the correct constructor based on your DetailPage
+                          )),
                 ),
                 child: const Text('Learn More'),
               ),

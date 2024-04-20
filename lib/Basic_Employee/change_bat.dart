@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+/// Content Page
 class DetailPage extends StatelessWidget {
   final String buttonText;
   final YoutubePlayerController _controller = YoutubePlayerController(
@@ -18,7 +19,7 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(buttonText),
-        toolbarHeight: 180.0, // Increased height
+        toolbarHeight: 180.0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -64,7 +65,6 @@ class DetailPage extends StatelessWidget {
                   'battery in place.',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                // Continue adding steps and text for the guide.
               ],
             ),
           ),

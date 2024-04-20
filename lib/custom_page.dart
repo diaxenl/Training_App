@@ -8,6 +8,7 @@ class LocalPageCreator extends StatefulWidget {
   _LocalPageCreatorState createState() => _LocalPageCreatorState();
 }
 
+///Beginning of work needed to allow users to make their own content. 
 class _LocalPageCreatorState extends State<LocalPageCreator> {
   String _title = '';
   String _content = '';
@@ -16,7 +17,8 @@ class _LocalPageCreatorState extends State<LocalPageCreator> {
 
   get key_content => null;
 
-  // Simplified _saveData method without image handling
+  /// Simplified _saveData method without image handling. Very simple first pass but experience and time have shown that our
+  /// current approach won't work with this.
   Future<void> _saveData() async {
     final prefs = await SharedPreferences.getInstance();
     // Generate a unique key for each new page (e.g., using timestamp)

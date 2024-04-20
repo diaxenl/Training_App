@@ -18,7 +18,7 @@ class CheckoutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(buttonText),
-        toolbarHeight: 180.0, // Increased height
+        toolbarHeight: 180.0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),

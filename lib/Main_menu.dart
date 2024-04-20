@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'standard_training_home_page.dart'; // Import for navigation
+import 'standard_training_home_page.dart';
+
+///Deprecated
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});

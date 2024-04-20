@@ -4,7 +4,9 @@ import 'package:training_app/User_Stuff/quiz_page_1.dart';
 import 'package:training_app/User_Stuff/quiz_page_2.dart';
 import 'DatabaseHelper.dart';
 
-// StatefulWidget for the UserHome page
+/// StatefulWidget for the UserHome page
+/// Has needed training to complete
+/// Would like to implement notification system from admin if time allows
 class UserHome extends StatefulWidget {
   const UserHome({super.key});
 
@@ -153,7 +155,8 @@ class _UserHomeState extends State<UserHome> {
   }
 
   // Search field for finding pages
-  //DOES NOT WORK
+  // DOES NOT WORK
+  // Need to change how we do things, outside scope of a 4 month project (scope change at beginning of year)
   Widget buildSearchField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
