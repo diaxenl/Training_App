@@ -89,7 +89,7 @@ class _UserLoginState extends State<UserLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Login'), backgroundColor: Colors.orange),
+      appBar: AppBar(title: const Text('User Login'), backgroundColor: Colors.orange, automaticallyImplyLeading: false,),
       body: Stack(
         children: [
           Padding(
