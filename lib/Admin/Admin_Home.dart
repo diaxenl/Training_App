@@ -40,21 +40,21 @@ class _AdminHomeState extends State<AdminHome> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit User'),
+          title: const Text('Edit User'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 TextField(
                   controller: _firstNameController,
-                  decoration: InputDecoration(labelText: 'First Name'),
+                  decoration: const InputDecoration(labelText: 'First Name'),
                 ),
                 TextField(
                   controller: _lastNameController,
-                  decoration: InputDecoration(labelText: 'Last Name'),
+                  decoration: const InputDecoration(labelText: 'Last Name'),
                 ),
                 TextField(
                   controller: _pinController,
-                  decoration: InputDecoration(labelText: 'PIN'),
+                  decoration: const InputDecoration(labelText: 'PIN'),
                   obscureText: true,
                 ),
               ],
@@ -62,27 +62,49 @@ class _AdminHomeState extends State<AdminHome> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: Text('Save'),
-              onPressed: () {
-                // Assuming you have methods in your DatabaseHelper to update these details
-                DatabaseHelper.instance.updateUserDetails(
-                  user.pin as int, // Assuming your User model has an 'id' field
-                  _firstNameController.text,
-                  _lastNameController.text,
-                  _pinController.text,
-                ).then((_) {
-                  // Reload the updated data
+              child: const Text('Save'),
+              onPressed: () async {
+                if (_firstNameController.text.isEmpty || _lastNameController.text.isEmpty || _pinController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('All fields are required!'))
+                  );
+                  return;
+                }
+
+                try {
+                  // Cast or confirm user.id is an integer
+                  int userId = int.tryParse(user.pin.toString()) ?? 0;
+                  if (userId == 0) {
+                    throw 'Invalid user ID'; // Add more robust handling as needed
+                  }
+
+                  await DatabaseHelper.instance.updateUserDetails(
+                    userId,
+                    _firstNameController.text.trim(),
+                    _lastNameController.text.trim(),
+                    _pinController.text.trim(),
+                  );
+
                   _loadUsers();
-                  Navigator.of(context).pop(); // Close the dialog
-                });
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('User updated successfully!'))
+                  );
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to update user: $e'))
+                  );
+                }
               },
+
             ),
+
           ],
         );
       },
@@ -98,7 +120,8 @@ class _AdminHomeState extends State<AdminHome> {
             _showEditUserDialog(user);
             break;
           case 'delete':
-            // Your existing delete user logic
+            DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
+        _loadUsers();
             break;
           default:
         }

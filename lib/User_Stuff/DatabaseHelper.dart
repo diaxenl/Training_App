@@ -123,7 +123,8 @@ class DatabaseHelper {
         'pin': pin,
       },
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id], // Ensure the arguments here are properly matching the expected types.
     );
   }
+
 }
