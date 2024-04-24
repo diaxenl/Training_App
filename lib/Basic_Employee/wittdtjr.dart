@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Content Page
 class WittdtjrPage extends StatelessWidget {
   const WittdtjrPage({Key? key}) : super(key: key);
 
@@ -8,17 +9,13 @@ class WittdtjrPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('WITTDTJR'),
-        // Increase the AppBar's height
-        toolbarHeight: 180.0, // Adjust the height to your preference
-        // Ensure content is not obscured by the notch
-        elevation: 0.0, // Optional: remove shadow if preferred
+        toolbarHeight: 180.0,
+        elevation: 0.0,
       ),
       body: const SafeArea(
-        // Wrap your body with SafeArea
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: SingleChildScrollView(
-            // Wrap with SingleChildScrollView for better handling of screen space
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

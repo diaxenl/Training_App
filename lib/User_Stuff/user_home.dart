@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:training_app/standard_training_home_page.dart'; // Import for the training home page
-import 'package:training_app/User_Stuff/quiz_page_1.dart'; // Import for quiz page 1
-import 'package:training_app/User_Stuff/quiz_page_2.dart'; // Import for quiz page 2
+import 'package:training_app/standard_training_home_page.dart';
+import 'package:training_app/User_Stuff/quiz_page_1.dart';
+import 'package:training_app/User_Stuff/quiz_page_2.dart';
+import 'DatabaseHelper.dart';
 
-// StatefulWidget for the UserHome page
+/// StatefulWidget for the UserHome page
+/// Has needed training to complete
+/// Would like to implement notification system from admin if time allows
 class UserHome extends StatefulWidget {
   const UserHome({super.key});
 
@@ -16,8 +19,21 @@ class _UserHomeState extends State<UserHome> {
   final TextEditingController _searchController = TextEditingController(); // Controller for search input
   Widget? _searchResult; // Widget to display search results
 
-  final bool _training1Completed = false; // Completion status for training 1
-  final bool _training2Completed = false; // Completion status for training 2
+  bool _training1Completed = false; // Completion status for training 1
+  bool _training2Completed = false; // Completion status for training 2
+
+  //Set state with completion status
+  void onTraining1Completed() {
+    setState(() {
+      _training1Completed = true;
+    });
+  }
+
+  void onTraining2Completed() {
+    setState(() {
+      _training2Completed = true;
+    });
+  }
 
   @override
   void dispose() {
@@ -75,7 +91,7 @@ class _UserHomeState extends State<UserHome> {
         children: <Widget>[
           const DrawerHeader(child: Text('Menu')),
           ListTile(
-            title: const Text('Item 1'),
+            title: const Text('Placeholder'),
             onTap: () => Navigator.pop(context), // Close the drawer on tap
           ),
           // Additional drawer items can be added here
@@ -93,7 +109,7 @@ class _UserHomeState extends State<UserHome> {
           LinearProgressIndicator(value: progress, backgroundColor: Colors.grey.shade300, color: Colors.orange, minHeight: 20),
           buildNavigationButton(context, 'Go to Training Home', const TrainingHomePage()),
           const SizedBox(height: 50),
-          const Padding(padding: EdgeInsets.all(8.0), child: Text('Most Used Pages', style: TextStyle(fontSize: 20))),
+          const Padding(padding: EdgeInsets.all(8.0), child: Text('Trainings', style: TextStyle(fontSize: 20))),
           buildHorizontalList(context), // Horizontal list for page navigation
           const SizedBox(height: 50),
           buildSearchField(), // Search field for page navigation
@@ -110,9 +126,15 @@ class _UserHomeState extends State<UserHome> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          _buildCardButton(context, 'Training 1', () => navigateToPage(context, const QuizPage1(userID: '')), _training1Completed),
-          _buildCardButton(context, 'Training 2', () => navigateToPage(context, const QuizPage2(userID: '')), _training2Completed),
-          // Additional buttons can be added here
+          _buildCardButton(context, 'Training 1',
+                  () => navigateToPage(context, QuizPage1(userID: '', onCompleted: onTraining1Completed)),
+              _training1Completed
+          ),
+          _buildCardButton(context, 'Training 2',
+              // Replace with the actual QuizPage2 and callback when you have it
+                  () => navigateToPage(context, QuizPage2(userID: '', onCompleted: onTraining2Completed)),
+              _training2Completed
+          ),
         ],
       ),
     );
@@ -133,12 +155,14 @@ class _UserHomeState extends State<UserHome> {
   }
 
   // Search field for finding pages
+  // DOES NOT WORK
+  // Need to change how we do things, outside scope of a 4 month project (scope change at beginning of year)
   Widget buildSearchField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: _searchController,
-        decoration: const InputDecoration(hintText: 'Search for pages...', suffixIcon: Icon(Icons.search)),
+        decoration: const InputDecoration(hintText: 'Not working', suffixIcon: Icon(Icons.search)),
         onSubmitted: _performSearch,
       ),
     );
@@ -164,10 +188,14 @@ class _UserHomeState extends State<UserHome> {
     );
   }
 
+
+
+  ///Early iteration needs to be refactored to be searchable.
+  ///Not doable in the time frame we have
   // Method to handle search actions
   void _performSearch(String query) {
     setState(() {
-      _searchResult = buildNavigationButton(context, 'Go to "$query" page', const TrainingHomePage());
+      _searchResult = buildNavigationButton(context, 'Routes to training home for now', const TrainingHomePage());
     });
   }
 

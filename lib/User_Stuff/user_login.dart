@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:training_app/standard_training_home_page.dart';
+import '../Admin/Admin_Home.dart';
 import './DatabaseHelper.dart';
 import './user_model.dart'; // Path to the User model class
 import 'user_home.dart';
 
-// StatefulWidget for handling user login
+/// StatefulWidget for handling user login
 class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
 
@@ -88,7 +89,7 @@ class _UserLoginState extends State<UserLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Login'), backgroundColor: Colors.orange),
+      appBar: AppBar(title: const Text('User Login'), backgroundColor: Colors.orange, automaticallyImplyLeading: false,),
       body: Stack(
         children: [
           Padding(
@@ -110,13 +111,13 @@ class _UserLoginState extends State<UserLogin> {
                     leading: CircleAvatar(child: Text(user.firstName[0])),
                     title: Text('${user.firstName} ${user.lastName}'),
                     subtitle: const Text('Tap to login'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () async {
-                        await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
-                        _loadUsers();
-                      },
-                    ),
+                    ///trailing: IconButton(
+                    ///  icon: const Icon(Icons.delete, color: Colors.red),
+                    ///  onPressed: () async {
+                    ///    await DatabaseHelper.instance.deleteUser(user.firstName, user.lastName, user.pin);
+                    ///    _loadUsers();
+                    ///  },
+                    ///), Moved to admin side
                     onTap: () => _verifyPinAndNavigate(user),
                   ),
                 );
@@ -176,7 +177,16 @@ class _UserLoginState extends State<UserLogin> {
               onPressed: () {
                 if (_pinController.text == user.pin) {
                   Navigator.of(context).pop();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHome()));
+
+                  // Check if the user is the first in the list
+                  if (_users.indexOf(user) == 0) {
+                    // Route to AdminHome if it's the first user
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminHome()));
+                  } else {
+                    // Route to UserHome for all other users
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHome()));
+                  }
+
                 } else {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Incorrect PIN')));

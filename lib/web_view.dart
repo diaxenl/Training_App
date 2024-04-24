@@ -3,6 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
+///Simple class that embeds the discourse knowledge base into the app. Can be made to link to a specific page.
 class WebViewPage extends StatefulWidget {
   final String buttonText;
 

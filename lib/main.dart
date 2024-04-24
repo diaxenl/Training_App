@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'Main_menu.dart';
-import 'standard_training_home_page.dart'; // Import navigation.dart
+import 'standard_training_home_page.dart';
 import 'User_Stuff/user_login.dart';
 
 void main() {
   runApp(const TrainingApp());
 }
 
+/// Defines entry point
 class TrainingApp extends StatelessWidget {
   const TrainingApp({super.key});
 
