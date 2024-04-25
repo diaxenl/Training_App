@@ -30,4 +30,4 @@ If you encounter any issues during use or installation, please reach out to our 
 If you want to run the code yourself start by setting up your flutter environment
 [Flutter documentation](https://docs.flutter.dev/get-started/install/windows/mobile?tab=later-start)
 Run `Flutter pub get` in the project to get the dependencies.
-Use `Flutter run` to execute code. ***It is highly recommended to have a target device to run this on***
+Use `Flutter run` to execute code. ***It is highly recommended to run this on an emulated android device***
